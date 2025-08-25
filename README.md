@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfólio - Miqueias Rocha #
+Este é um projeto desenvolvido com Next.js, criado como portfólio pessoal para apresentar minhas habilidades, projetos e trajetória profissional.
+O design e a estrutura foram construídos com foco em performance, responsividade e boas práticas de desenvolvimento.
 
-## Getting Started
+## 🚀 Tecnologias Utilizadas ##
 
-First, run the development server:
+- Next.js 15.5.0 – Framework React para aplicações web modernas
 
-```bash
+- React 19.1.0 – Biblioteca para criação de interfaces
+
+- React DOM 19.1.0 – Renderização de componentes React no navegador
+
+- React Icons 5.5.0 – Ícones prontos para uso em React
+
+- Simple Icons 15.12.0 – Ícones de marcas e tecnologias
+
+ ## Dependências de desenvolvimento ## 
+
+- TypeScript 5 – Tipagem estática para JavaScript
+
+- TailwindCSS 4 – Estilização rápida e moderna com utilitários
+
+- ESLint 9 – Padronização e qualidade de código
+
+- @types (Node, React, React DOM) – Suporte a tipagem para TypeScript
+
+ ## 📦 Instalação e Uso ## 
+
+Clone o repositório e instale as dependências:
+
+``` bash
+npm install
+```
+ ou
+``` bash
+yarn install
+```
+ ou
+``` bash
+pnpm install
+```
+ ou
+``` bash
+bun install
+```
+
+ ### Executar em modo de desenvolvimento: ### 
+
+``` bash
 npm run dev
-# or
+```
+ ou
+ ``` bash
 yarn dev
-# or
+```
+ ou
+ ``` bash
 pnpm dev
-# or
+```
+ ou
+``` bash 
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O projeto ficará disponível em: 👉 http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ ### ⚙️ Scripts Disponíveis ### 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- dev – Inicia o servidor de desenvolvimento com Turbopack
 
-## Learn More
+- build – Gera a versão de produção e exporta os arquivos estáticos
 
-To learn more about Next.js, take a look at the following resources:
+- start – Inicia o servidor em produção
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- lint – Executa o ESLint para verificar problemas no código
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ ### ✨ Funcionalidades ### 
 
-## Deploy on Vercel
+- Interface moderna e responsiva
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Utilização de TailwindCSS para design rápido e eficiente
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Ícones personalizados de tecnologias e redes sociais
+
+- Estrutura modular para fácil manutenção e escalabilidade
+
+- Deploy otimizado para plataformas como Vercel
+
+ ### 📖 Saiba Mais ### 
+
+[Documentação Next.js](https://nextjs.org/docs) – Recursos e API
+
+[Tutorial Interativo Next.js](https://nextjs.org/learn) – Guia prático
+
+[Repositório Next.js no GitHub](https://github.com/vercel/next.js)
+
+ ### ☁️ Deploy ### 
+
+O deploy mais simples é feito utilizando a Vercel, plataforma criada pelos desenvolvedores do Next.js.
+
+📌 ***Autor: Miqueias Rocha***
