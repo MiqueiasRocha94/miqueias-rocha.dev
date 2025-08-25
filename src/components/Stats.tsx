@@ -2,7 +2,7 @@
 
 
 
-import {GitStaticsModel, stats} from "@/model/GitStaticsModel";
+import {GitStaticsModel, stats} from "@/models/GitStaticsModel";
 
 export default function Stats() {
     return (
