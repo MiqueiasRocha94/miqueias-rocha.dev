@@ -1,6 +1,6 @@
 "use client"
 
-import {techs} from "@/model/Technologies";
+import {techs} from "@/models/Technologies";
 
 export default function Technologies() {
     return (
