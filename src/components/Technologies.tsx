@@ -11,7 +11,7 @@ export default function Technologies() {
                     const Icon = tech.icon;
                     return (
                         <div key={idx} className="tech-card flex flex-col items-center p-6 bg-gray-700 rounded-2xl shadow-lg border border-gray-600">
-                            <Icon className="h-10 w-10 text-indigo-400 mb-2" />
+                            <Icon className={`h-10 w-10 mb-2`} style={{ color: tech.color }} />
                             <span className="text-sm font-semibold text-gray-100">{tech.name}</span>
                         </div>
                     );

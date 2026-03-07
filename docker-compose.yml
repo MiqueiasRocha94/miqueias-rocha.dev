@@ -1,0 +1,14 @@
+services:
+  nextjs-app:
+    container_name: portfolio-nextjs-app
+    build: .
+    ports:
+      - "3001:3000"
+    networks:
+      - proxy-network
+    mem_reservation: 256m
+    mem_limit: 1g
+
+networks:
+  proxy-network:
+    external: true

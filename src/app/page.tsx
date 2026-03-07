@@ -1,25 +1,79 @@
-import Header from '../components/Header';
-import About from '../components/About';
-import Education from '../components/Education';
-import Technologies from '../components/Technologies';
-import Stats from '../components/Stats';
-import Timeline from '../components/Timeline';
+import Image from "next/image";
+import homeBg from "@/assets/images/home.png";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import DragonCursor from "@/components/DragonCursor";
+import ServiceBalls from "@/components/ServiceBalls";
 
 export default function Home() {
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[#0d1117] text-gray-200">
-            <div className="bg-gray-800/70 backdrop-blur-md max-w-5xl w-full mx-auto p-6 sm:p-10 lg:p-16 rounded-[40px] shadow-2xl space-y-12 border border-gray-700">
-                <Header />
-                <hr className="border-gray-700 slide-up-fade-in" />
-                <About />
-                <hr className="border-gray-700 slide-up-fade-in" />
-                <Education />
-                <hr className="border-gray-700 slide-up-fade-in" />
-                <Technologies />
-                <hr className="border-gray-700 slide-up-fade-in" />
-                <Stats />
-                <hr className="border-gray-700 slide-up-fade-in" />
-                <Timeline />
+        <div className="relative w-screen h-screen overflow-hidden">
+
+            {/* Background */}
+            <Image
+                src={homeBg}
+                alt="Background"
+                fill
+                priority
+                className=""
+            />
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/50" />
+
+            <DragonCursor/>
+
+            {/* Conteúdo */}
+            <div className="relative z-10 flex flex-col h-full text-white">
+
+                {/* HEADER */}
+                <header className="pt-10 text-center ">
+                    <h1 className="
+                          text-5xl
+                          font-black
+                          tracking-widest
+                          bg-gradient-to-b
+                          from-gray-200
+                          via-white
+                          to-gray-400
+                          bg-clip-text
+                          text-transparent
+                          drop-shadow-[0_0_10px_rgba(255,0,0,0.7)]
+                          font-[var(--font-orbitron)]
+                        ">
+                        Miqueias Rocha
+                    </h1>
+
+                    {/* Linha divisória neon */}
+                    <div className="relative mx-auto mt-3 mb-2 h-[2px] w-80 bg-red-700 overflow-hidden">
+                        <span className="absolute top-0 left-[-40%] h-full w-1/3 bg-gradient-to-r from-transparent via-red-400 to-transparent animate-energy" />
+                    </div>
+
+                    <h2 className="text-lg text-gray-300 tracking-wide">
+                        Developer FullStack
+                    </h2>
+                </header>
+
+                {/* BODY */}
+                <main className="flex-1 flex items-center justify-center">
+                    <ServiceBalls/>
+                </main>
+
+                {/* FOOTER */}
+                <footer className="pb-6">
+
+                    {/* Linha superior do footer */}
+                    <div className="relative mx-auto mt-3 mb-2 h-[3px] w-[150vh] bg-red-700 overflow-hidden">
+                        <span className="absolute top-0 left-[-40%] h-full w-1/3 bg-gradient-to-r from-transparent via-red-400 to-transparent animate-energy" />
+                    </div>
+
+                    <div className="flex justify-center items-center gap-12 text-red-500 text-3xl">
+                        <FaGithub className="hover:scale-110 transition duration-300" />
+                        <MdEmail className="hover:scale-110 transition duration-300" />
+                        <FaLinkedin className="hover:scale-110 transition duration-300" />
+                    </div>
+                </footer>
+
             </div>
         </div>
     );

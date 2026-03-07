@@ -17,12 +17,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: "Miqueias Rocha",
-    description: "Portfólio de <NAME>.",
+    description: "Portfólio de Miqueias Rocha.",
     icons: {
         icon: "/favicon.ico",
     },
-    authors: [{ name: "BRTEC" }],
-    keywords: ["BRTEC", "Tecnologia", "Empreendedorismo", "Gestão"],
+    authors: [{ name: "Miqueias Rocha" }],
+    keywords: ["Tech Lead", "Java Full Stack", "Developer", "Líder Técnico", "desenvolvedor"],
 };
 
 export default function RootLayout({

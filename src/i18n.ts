@@ -15,8 +15,8 @@ i18n
             loadPath: '/locales/{{lng}}/{{lng}}.json'
         },
         interpolation: {
-            escapeValue: false // react já faz escaping
-        }
+            escapeValue: false,
+        },
     });
 
 export default i18n;
