@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
     startContainer,
     stopContainer,
@@ -6,12 +6,9 @@ import {
     removeContainer,
 } from "@/services/dockerService";
 
-export async function POST(
-    req: Request,
-    { params }: { params: { id: string } }
-) {
+export async function POST(req: NextRequest, context: { params: { id: string } }) {
     const { action } = await req.json();
-    const { id } = params;
+    const { id } = context.params;
 
     try {
         switch (action) {
@@ -28,17 +25,11 @@ export async function POST(
                 await removeContainer(id);
                 break;
             default:
-                return NextResponse.json(
-                    { error: "Ação inválida" },
-                    { status: 400 }
-                );
+                return NextResponse.json({ error: "Ação inválida" }, { status: 400 });
         }
 
         return NextResponse.json({ success: true });
     } catch (error) {
-        return NextResponse.json(
-            { error: "Erro ao executar ação" },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: "Erro ao executar ação" }, { status: 500 });
     }
 }

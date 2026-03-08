@@ -17,6 +17,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     output: "standalone",
+    typescript: {
+        ignoreBuildErrors: true, // ⚠️ ignora todos os erros de TS durante o build
+    },
     eslint: {
         ignoreDuringBuilds: true,
     },

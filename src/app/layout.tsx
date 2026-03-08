@@ -4,6 +4,7 @@ import "./globals.css";
 import {ThemeProvider} from "@/contexts/ThemeProvider";
 import {LanguageProvider} from "@/contexts/LanguageContext";
 import {TooltipProvider} from "@/components/ui/tooltip";
+import {AuthProvider} from "@/contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: "Miqueias Rocha",
-    description: "Portfólio de Miqueias Rocha.",
+    description: "app de Miqueias Rocha.",
     icons: {
         icon: "/favicon.ico",
     },
@@ -31,18 +32,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <ThemeProvider>
-          <TooltipProvider>
-              <LanguageProvider>
-                  {children}
-              </LanguageProvider>
-          </TooltipProvider>
-      </ThemeProvider>
+      <html lang="pt-BR" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <AuthProvider>
+          <ThemeProvider>
+              <TooltipProvider>
+                  <LanguageProvider>
+                      {children}
+                  </LanguageProvider>
+              </TooltipProvider>
+          </ThemeProvider>
+      </AuthProvider>
       </body>
-    </html>
+      </html>
   );
 }
