@@ -10,17 +10,22 @@ export default function Header() {
     const { t } = useLanguage();
 
     return (
-        <header className="text-center slide-up-fade-in">
-            <div className="mb-6">
+        <header className="text-center slide-up-fade-in relative">
+
+            <div className="mb-6 relative flex justify-center">
+
                 <Image
                     src={Images.PROFILE_PHOTO}
                     alt="Logo"
-                    width={150}
-                    height={150}
-                    className="mx-auto rounded-full w-28 h-28 sm:w-36 sm:h-36 object-cover ring-4 ring-primary shadow-xl mb-4"
+                    width={200}
+                    height={200}
+                    className="rounded-full w-28 h-28 sm:w-36 sm:h-36 object-cover object-[50%_20%] ring-4 ring-primary shadow-xl"
                 />
 
-                <Translate />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                    <Translate />
+                </div>
+
             </div>
 
             <TypographyH1 className="text-primary mb-2 leading-tight">
@@ -30,6 +35,7 @@ export default function Header() {
             <TypographyP className="text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                 {t("header.description")}
             </TypographyP>
+
         </header>
     );
 }
