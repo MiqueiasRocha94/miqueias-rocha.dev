@@ -5,6 +5,8 @@ import {ThemeProvider} from "@/contexts/ThemeProvider";
 import {LanguageProvider} from "@/contexts/LanguageContext";
 import {TooltipProvider} from "@/components/ui/tooltip";
 import {AuthProvider} from "@/contexts/AuthContext";
+import {ChatProvider} from "@/contexts/ChatContext";
+import ChatWoot from "@/components/ChatWoot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +40,12 @@ export default function RootLayout({
           <ThemeProvider>
               <TooltipProvider>
                   <LanguageProvider>
-                      {children}
+                      <ChatProvider>
+                        {children}
+                          <div className="fixed bottom-1 right-12 z-[9999]">
+                              <ChatWoot/>
+                          </div>
+                      </ChatProvider>
                   </LanguageProvider>
               </TooltipProvider>
           </ThemeProvider>

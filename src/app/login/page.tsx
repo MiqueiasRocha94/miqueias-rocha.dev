@@ -13,6 +13,7 @@ export default function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isMobile, setIsMobile] = useState(false);
+    const [error, setError] = useState("");
     const { login, user } = useAuth();
 
     const isFormValid = username.trim() !== "" && password.trim() !== "";
@@ -20,9 +21,15 @@ export default function LoginPage() {
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         if (!isFormValid) return;
-        // lógica de login aqui
+        if(login(username, password)){
+            router.push("/admin");
+        }else {
+            setError("Usuário ou senha inválidos");
 
-        router.push("/admin");
+            setTimeout(() => {
+                setError("");
+            }, 3000);
+        }
     };
 
     useEffect(() => {
@@ -52,6 +59,12 @@ export default function LoginPage() {
             {/* LEDs laterais animados */}
             <div className="absolute left-0 top-0 h-full w-2 bg-red-600 opacity-30 animate-pulse z-20"></div>
             <div className="absolute right-0 top-0 h-full w-2 bg-red-600 opacity-30 animate-pulse z-20"></div>
+
+            {error && (
+                <div className="bg-black border border-red-600 text-red-500 px-6 py-3 rounded-lg shadow-[0_0_15px_#ff0000] animate-pulse backdrop-blur-md">
+                    {error}
+                </div>
+            )}
 
             {/* Container de login */}
             <form

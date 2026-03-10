@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import ballImg from "@/assets/images/ball.png";
+import {PAGES} from "@/config/navegation";
 
 interface ServiceBall {
     name: string;
@@ -14,14 +15,7 @@ interface ServiceBall {
 const BALL_SIZE = 150;
 
 const SERVICES = [
-    { name: "Web Cloud", link: "http://cloud.micahrock.com" },
-    { name: "Sobre Mim", link: "/sobremin" },
-    { name: "Chat", link: "/chat" },
-    { name: "Admin", link: "/admin" },
-    { name: "Analytics", link: "/analytics" },
-    { name: "Notifications", link: "/notifications" },
-    { name: "Settings", link: "/settings" },
-    { name: "Help", link: "/help" },
+    ...PAGES,
     { name: "", link: "" },
     { name: "", link: "" },
     { name: "", link: "" },
@@ -61,7 +55,7 @@ const TAURO_POSITIONS = [
     { x: 0.35, y: 0.25 }, // Estrela fraca da testa
 ];
 
-export default function ServiceBalls() {
+export default function ServicePages() {
     const [balls, setBalls] = useState<ServiceBall[]>([]);
     const [showCruzeiro, setShowCruzeiro] = useState(true);
 

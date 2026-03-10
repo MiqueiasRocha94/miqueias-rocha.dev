@@ -17,6 +17,7 @@ interface AuthContextType {
     login: (username: string, password: string) => boolean;
     logout: () => void;
     loading: boolean;
+    isAuthenticated: boolean;
 }
 
 // Props do provedor
@@ -90,13 +91,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const logout = () => {
         setUser(null);
         localStorage.removeItem("user");
-        router.push("/login");
+        router.push("/");
     };
+
+    const isAuthenticated =
+        !!user && user.token === process.env.NEXT_PUBLIC_ADMIN_TOKEN;
 
     if (loading || (!PUBLIC_PAGES.includes(pathname) && !user)) return <Loading />;
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading, isAuthenticated }}>
             {children}
         </AuthContext.Provider>
     );

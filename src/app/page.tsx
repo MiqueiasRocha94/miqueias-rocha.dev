@@ -1,11 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import homeBg from "@/assets/images/home.png";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import DragonCursor from "@/components/DragonCursor";
-import ServiceBalls from "@/components/ServiceBalls";
+import ServicePages from "@/components/ServicePages";
+import MobileServices from "@/components/MobileServices";
+import Link from "next/link";
 
 export default function Home() {
+    const isMobile = window.innerWidth < 768;
     return (
         <div className="relative w-screen h-screen overflow-hidden">
 
@@ -56,11 +61,15 @@ export default function Home() {
 
                 {/* BODY */}
                 <main className="flex-1 flex items-center justify-center">
-                    <ServiceBalls/>
+                    {isMobile?(
+                        <MobileServices/>
+                    ):(
+                        <ServicePages/>
+                    )}
                 </main>
 
                 {/* FOOTER */}
-                <footer className="pb-6">
+                <footer className="absolute bottom-0 left-0 w-full pb-6">
 
                     {/* Linha superior do footer */}
                     <div className="relative mx-auto mt-3 mb-2 h-[3px] w-[150vh] bg-red-700 overflow-hidden">
@@ -68,10 +77,17 @@ export default function Home() {
                     </div>
 
                     <div className="flex justify-center items-center gap-12 text-red-500 text-3xl">
-                        <FaGithub className="hover:scale-110 transition duration-300" />
-                        <MdEmail className="hover:scale-110 transition duration-300" />
-                        <FaLinkedin className="hover:scale-110 transition duration-300" />
+                        <Link href="https://github.com/MiqueiasRocha94">
+                            <FaGithub className="hover:scale-110 transition duration-300" />
+                        </Link>
+                        <Link href="mailto:">
+                            <MdEmail className="hover:scale-110 transition duration-300" />
+                        </Link>
+                        <Link href="https://www.linkedin.com/in/miqueias-m-rocha/">
+                            <FaLinkedin className="hover:scale-110 transition duration-300" />
+                        </Link>
                     </div>
+
                 </footer>
 
             </div>

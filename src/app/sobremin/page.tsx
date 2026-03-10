@@ -6,31 +6,9 @@ import Education from "@/components/Education";
 import Technologies from "@/components/Technologies";
 import Stats from "@/components/Stats";
 import Timeline from "@/components/Timeline";
-import ChatWoot from "@/components/ChatWoot";
-import {useState} from "react";
-
-interface Message {
-    id: number;
-    text: string;
-    fromUser: boolean;
-    time: string;
-}
 
 
 export default function portfolio() {
-    const [messages, setMessages] = useState<Message[]>([]);
-
-    function sendMessage(text: string) {
-        const msg: Message = {
-            id: Date.now(),
-            text,
-            fromUser: true,
-            time: new Date().toLocaleTimeString()
-        };
-
-        setMessages((prev) => [...prev, msg]);
-    }
-
     return (
         <>
             {/* Conteúdo da página */}
@@ -49,17 +27,7 @@ export default function portfolio() {
                     <hr className="border-border slide-up-fade-in" />
                     <Timeline />
                 </div>
-                <div className="fixed bottom-1 right-12 z-[9999]">
-                    <ChatWoot
-                        messages={messages}
-                        onSend={sendMessage}
-                    />
-                </div>
-
             </div>
-
-            {/* CHAT FIXO NA TELA */}
-
         </>
     );
 }

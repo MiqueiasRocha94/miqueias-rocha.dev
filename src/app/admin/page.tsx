@@ -2,22 +2,32 @@
 
 import { useState } from "react";
 import DockerAdmin from "@/components/DockerAdmin";
+import { useAuth } from "@/contexts/AuthContext";
+import ChatIA from "@/components/ChatAdmin";
 
-type Tab = "dashboard" | "docker" | "apache" | "roteador";
+type Tab = "dashboard" | "docker" | "apache" | "roteador" | "chat";
 
 export default function AdminTabs() {
     const [activeTab, setActiveTab] = useState<Tab>("dashboard");
+    const { logout } = useAuth();
 
     const renderContent = () => {
         switch (activeTab) {
             case "dashboard":
                 return <div className="text-gray-300">Visão geral do sistema e métricas.</div>;
+
             case "docker":
-                return <DockerAdmin/>;
+                return <DockerAdmin />;
+
             case "apache":
                 return <div className="text-gray-300">Configurações e VirtualHosts do Apache.</div>;
+
             case "roteador":
                 return <div className="text-gray-300">Monitoramento e configuração do roteador.</div>;
+
+            case "chat":
+                return <ChatIA/>
+
             default:
                 return null;
         }
@@ -42,12 +52,25 @@ export default function AdminTabs() {
 
     return (
         <div className="min-h-[400px] justify-center bg-black rounded-xl shadow-2xl border border-red-900">
+
             {/* Tabs */}
-            <div className="flex border-b border-red-900 bg-gradient-to-r from-black to-zinc-900 rounded-t-xl">
-                {tabButton("dashboard", "Dashboard")}
-                {tabButton("docker", "Docker")}
-                {tabButton("apache", "Apache")}
-                {tabButton("roteador", "Roteador")}
+            <div className="flex justify-between items-center border-b border-red-900 bg-gradient-to-r from-black to-zinc-900 rounded-t-xl">
+
+                <div className="flex">
+                    {tabButton("dashboard", "Dashboard")}
+                    {tabButton("docker", "Docker")}
+                    {tabButton("apache", "Apache")}
+                    {tabButton("roteador", "Roteador")}
+                    {tabButton("chat", "Chat")}
+                </div>
+
+                {/* Logout */}
+                <button
+                    onClick={logout}
+                    className="mr-4 px-4 py-2 text-sm font-bold uppercase text-black bg-red-600 rounded-md hover:bg-red-700 hover:shadow-[0_0_15px_#ff0000] transition"
+                >
+                    Logout
+                </button>
             </div>
 
             {/* Content */}

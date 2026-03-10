@@ -2,80 +2,37 @@
 
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import {httpChat} from "@/services/api";
-
-interface Message {
-    id: number;
-    role: "user" | "ai";
-    content: string;
-}
+import {useChat} from "@/contexts/ChatContext";
 
 interface ChatProps {
     isAdmin: boolean;
 }
 
 export default function Chat({ isAdmin }: ChatProps) {
-    const [messages, setMessages] = useState<Message[]>([]);
+    const { messages, sendMessage } = useChat();
+
     const [input, setInput] = useState("");
-    const [showSource, setShowSource] = useState<number | null>(null);
+    const [showSource, setShowSource] = useState<string | null>(null);
     const [started, setStarted] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    async function sendMessage() {
+    async function handleSend() {
+
         if (!input.trim()) return;
 
-        const userMsg: Message = {
-            id: Date.now(),
-            role: "user",
-            content: input,
-        };
-
-        setMessages((prev) => [...prev, userMsg]);
-        setInput("");
         setStarted(true);
         setLoading(true);
 
         try {
-            // pegar última resposta para enviar no previousResponse
-            const lastAIResponse = messages
-                .filter((m) => m.role === "ai")
-                .map((m) => m.content)
-                .join("\n");
 
-            const payload = {
-                id: 0,
-                ativo: "true",
-                name: "Uriel",
-                birthDate: "2026-03-06",
-                address: "",
-                question: input,
-                previousResponse: lastAIResponse || "",
-                usertypes: isAdmin ? "admin" : "visitante",
-                idSystem: 1,
-            };
+            await sendMessage(input);
 
-            const response = await httpChat.post("/chat", payload);
-            console.log("response", httpChat.getUri());
-            const aiText = response.data?.message;
+            setInput("");
 
-            const aiMsg: Message = {
-                id: Date.now() + 1,
-                role: "ai",
-                content: aiText,
-            };
-
-            setMessages((prev) => [...prev, aiMsg]);
-        } catch (error) {
-            console.error(error);
-            const aiMsg: Message = {
-                id: Date.now() + 1,
-                role: "ai",
-                content: "Erro ao obter resposta da API.",
-            };
-            setMessages((prev) => [...prev, aiMsg]);
         } finally {
             setLoading(false);
         }
+
     }
 
     const showWelcome = !started && !isAdmin;
@@ -124,7 +81,7 @@ export default function Chat({ isAdmin }: ChatProps) {
                                 disabled={loading}
                             />
                             <button
-                                onClick={sendMessage}
+                                onClick={handleSend}
                                 className="bg-red-700 px-6 rounded-full hover:bg-red-600"
                                 disabled={loading}
                             >
@@ -140,17 +97,16 @@ export default function Chat({ isAdmin }: ChatProps) {
                         <div className="flex-1 overflow-y-auto py-6 space-y-6">
                             {messages.map((msg) => (
                                 <div key={msg.id}>
-                                    {msg.role === "user" && (
+                                    {msg.fromUser ? (
                                         <div className="flex justify-end">
                                             <div className="bg-red-700 p-4 rounded-lg max-w-xl">
-                                                {msg.content}
+                                                {msg.text}
                                             </div>
                                         </div>
-                                    )}
-                                    {msg.role === "ai" && (
+                                        ) : (
                                         <div className="flex justify-start">
                                             <div className="bg-zinc-900 border border-red-700 p-4 rounded-lg max-w-2xl">
-                                                <ReactMarkdown>{msg.content}</ReactMarkdown>
+                                                <ReactMarkdown>{msg.text}</ReactMarkdown>
 
                                                 <button
                                                     onClick={() =>
@@ -163,8 +119,8 @@ export default function Chat({ isAdmin }: ChatProps) {
 
                                                 {showSource === msg.id && (
                                                     <pre className="bg-black p-3 mt-3 text-sm overflow-x-auto border border-red-700">
-                            {msg.content}
-                          </pre>
+                                                        {msg.text}
+                                                    </pre>
                                                 )}
                                             </div>
                                         </div>
@@ -184,7 +140,7 @@ export default function Chat({ isAdmin }: ChatProps) {
                                     disabled={loading}
                                 />
                                 <button
-                                    onClick={sendMessage}
+                                    onClick={handleSend}
                                     className="bg-red-700 px-5 rounded-lg hover:bg-red-600"
                                     disabled={loading}
                                 >

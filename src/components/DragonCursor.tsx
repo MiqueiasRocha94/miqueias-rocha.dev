@@ -15,18 +15,19 @@ export default function DragonCursor() {
     useEffect(() => {
         const canvas = canvasRef.current!;
         const ctx = canvas.getContext("2d")!;
-
+        const isMobile = window.innerWidth < 768;
         /* ===============================
            CONFIG
         =============================== */
-        const BASE_SIZE = 150;
+        const BASE_SIZE = isMobile ? 50 : 150;
         const FOLLOW_SPEED = 0.01;
         const SEGMENT_SPACING = BASE_SIZE * 0.35;
         const IDLE_TIME = 2000;
 
-        const NECK = 10;
-        const BODY = 20;
-        const TAIL = 20;
+        const NECK = isMobile ? 5 : 10;
+        const BODY = isMobile ? 10 : 20;
+        const TAIL = isMobile ? 10 : 20;
+        const trail: {x:number,y:number,angle:number}[] = [];
 
         let lastMoveTime = Date.now();
         let autonomous = false;
@@ -101,8 +102,9 @@ export default function DragonCursor() {
             autonomous = false;
         }
 
-        window.addEventListener("mousemove", handleMouse);
-
+        if(!isMobile) {
+            window.addEventListener("mousemove", handleMouse);
+        }
         document.addEventListener("visibilitychange", () => {
             autonomous = document.hidden;
         });
@@ -110,8 +112,8 @@ export default function DragonCursor() {
         /* ===============================
            AUTONOMOUS TARGET
         =============================== */
-        const EDGE_MARGIN = 100;
-        const ROUTE = [0,1,3,2,0,8,1,7,5,6,4,3,5,6,1,7,3,8,2,0,8,1,3]
+        const EDGE_MARGIN = isMobile ? 30 : 100;
+        const ROUTE = isMobile ? [0,1,3,2,0,3,2,1,0,3,1,2 ] : [0,1,3,2,0,8,1,7,5,6,4,3,5,6,1,7,3,8,2,0,8,1,3]
         let routeIndex = 0;
 
         function getStrategicPoints() {
@@ -177,6 +179,16 @@ export default function DragonCursor() {
             parts[0].angle = Math.atan2(dy, dx);
             parts[0].x += dx * FOLLOW_SPEED;
             parts[0].y += dy * FOLLOW_SPEED;
+
+            trail.unshift({
+                x: parts[0].x,
+                y: parts[0].y,
+                angle: parts[0].angle
+            });
+
+            if (trail.length > parts.length * 50) {
+                trail.pop();
+            }
         }
 
         /* ===============================
