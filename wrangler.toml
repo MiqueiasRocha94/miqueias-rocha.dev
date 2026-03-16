@@ -1,4 +1,4 @@
-name = "miqueias-rocha-dev"
+name = "app"
 main = ".open-next/worker.js"
 compatibility_date = "2025-01-01"
 
