@@ -75,7 +75,11 @@ export default function LoginPage() {
             {/* Container de login */}
             <form
                 onSubmit={handleLogin}
-                className="relative z-30 login-container bg-darkBg border-2 border-neonRed rounded-xl p-8 sm:p-10 w-[52vh] max-w-[90%] h-[38vh] max-h-[80%] -translate-y-3 text-center shadow-[0_0_30px_#ff0000,0_0_60px_#ff0000_inset] animate-glow flex flex-col justify-between"
+                className={`relative z-30 login-container bg-darkBg border-2 border-neonRed rounded-xl p-8 sm:p-10 -translate-y-3 text-center shadow-[0_0_30px_#ff0000,0_0_60px_#ff0000_inset] animate-glow flex flex-col justify-between ${
+                    isMobile
+                        ? "w-[85vw] max-w-[90vw] h-auto min-h-[320px]"
+                        : "w-[52vh] max-w-[90%] h-[38vh] max-h-[80%]"
+                }`}
             >
                 <h2 className="text-neonRed text-3xl mb-6 uppercase tracking-widest animate-textGlow">
                     Login
