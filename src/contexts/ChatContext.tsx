@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { httpActuator, httpChat } from "@/services/api";
+import { getHttpActuator, getHttpChat } from "@/services/api";
 
 
 type Message = {
@@ -71,6 +71,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
             try {
 
+                const httpActuator = await getHttpActuator();
                 const response = await httpActuator.get("/actuator/health");
 
                 const isUp = response.data.status === "UP";
@@ -150,6 +151,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 idSystem: 1
             };
 
+            const httpChat = await getHttpChat();
             const response = await httpChat.post("/chat", payload);
 
             const aiText = response.data?.message ?? "Sem resposta da IA.";
@@ -182,6 +184,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
         try {
 
+            const httpChat = await getHttpChat();
             const response = await httpChat.post("/embedding", {
                 text,
                 queries
@@ -200,6 +203,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
         try {
 
+            const httpChat = await getHttpChat();
             const response = await httpChat.get("/models");
 
             return response.data ?? [];

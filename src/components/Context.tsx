@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { httpChat } from "@/services/api";
+import { getHttpChat } from "@/services/api";
 import MarkdownTextArea from "@/components/MarkdownTextArea";
 
 // Tipos
@@ -21,6 +21,7 @@ export default function Context() {
     // Buscar contextos existentes
     const fetchContext = async () => {
         try {
+            const httpChat = await getHttpChat();
             const response = await httpChat.get(`/admin/list/aicontext/AgentAI`);
             setFormContext(response.data);
         } catch (err) {
@@ -32,8 +33,10 @@ export default function Context() {
     const saveContext = async () => {
         try {
             if (formContext.id) {
+                const httpChat = await getHttpChat();
                 await httpChat.post("/api/v1/admin/aicontext", formContext);
             } else {
+                const httpChat = await getHttpChat();
                 await httpChat.post("/api/v1/admin/aicontext", formContext);
             }
             setFormContext({ name: "", context: "", ativo: true });

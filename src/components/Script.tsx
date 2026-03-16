@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { httpChat } from "@/services/api";
+import { getHttpChat } from "@/services/api";
 import MarkdownTextArea from "@/components/MarkdownTextArea";
 import {mode} from "d3-array";
 
@@ -26,6 +26,7 @@ export default function Script() {
 
     const fetchModels = async () => {
         try {
+            const httpChat = await getHttpChat();
             const response = await httpChat.get("/model");
             setModels(response.data);
         } catch (err) {
@@ -35,6 +36,7 @@ export default function Script() {
 
     const fetchPrompts = async () => {
         try {
+            const httpChat = await getHttpChat();
             const response = await httpChat.get(`/admin/list/prompt/AgentAI`);
 
             const data = response.data;
@@ -56,6 +58,7 @@ export default function Script() {
 
     const savePrompt = async () => {
         try {
+            const httpChat = await getHttpChat();
             await httpChat.post("/admin/prompt", formPrompt);
             fetchPrompts();
         } catch (err) {
