@@ -9,6 +9,7 @@ import DragonCursor from "@/components/DragonCursor";
 import ServicePages from "@/components/ServicePages";
 import MobileServices from "@/components/MobileServices";
 import Link from "next/link";
+import { useDevice } from "@/contexts/DeviceContext";
 
 const HIGHLIGHTS = [
     {
@@ -26,15 +27,8 @@ const HIGHLIGHTS = [
 ];
 
 export default function Home() {
-    const [isMobile, setIsMobile] = useState(false);
+    const { isMobile } = useDevice();
     const [activeCard, setActiveCard] = useState(0);
-
-    useEffect(() => {
-        const update = () => setIsMobile(window.innerWidth < 768);
-        update();
-        window.addEventListener("resize", update);
-        return () => window.removeEventListener("resize", update);
-    }, []);
 
     useEffect(() => {
         if (!isMobile) return;
@@ -45,7 +39,7 @@ export default function Home() {
     }, [isMobile]);
 
     return (
-        <div className="relative w-screen h-screen overflow-hidden">
+        <div className={`relative overflow-hidden ${isMobile ? "min-h-screen w-full" : "h-screen w-screen"}`}>
             <Image src={homeBg} alt="Background" fill priority className="" />
             <div className="absolute inset-0 bg-black/50" />
 

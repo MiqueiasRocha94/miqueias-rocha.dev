@@ -7,14 +7,15 @@ import bgPlacaMae from "@/assets/images/placa-mae-bg.png";
 import mobile from "@/assets/images/mobile-bg.png";
 import {useEffect, useState} from "react";
 import {useAuth} from "@/contexts/AuthContext";
+import { useDevice } from "@/contexts/DeviceContext";
 
 export default function LoginPage() {
     const router = useRouter();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [isMobile, setIsMobile] = useState(false);
     const [error, setError] = useState("");
     const { login, user } = useAuth();
+    const { isMobile } = useDevice();
 
     const isFormValid = username.trim() !== "" && password.trim() !== "";
 
@@ -33,13 +34,18 @@ export default function LoginPage() {
     };
 
     useEffect(() => {
-        const width = window.innerWidth;
-        setIsMobile(width < 768);
-    });
+        if (user) {
+            router.push("/admin");
+        }
+    }, [user, router]);
 
 
     return (
-        <div className="relative flex items-center justify-center h-screen w-screen overflow-hidden">
+        <div
+            className={`relative flex items-center justify-center overflow-hidden ${
+                isMobile ? "min-h-screen w-full" : "h-screen w-screen"
+            }`}
+        >
 
             {/* Fundo da placa-mãe */}
             <div

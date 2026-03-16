@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useDevice } from "@/contexts/DeviceContext";
 
 import headImg from "@/assets/images/dragon-head.png";
 import segmentImg from "@/assets/images/dragon-Body-segments.png";
@@ -11,11 +12,11 @@ import tailImg from "@/assets/images/dragon-tail.png";
 export default function DragonCursor() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const mouse = useRef({ x: 0, y: 0 });
+    const { isMobile } = useDevice();
 
     useEffect(() => {
         const canvas = canvasRef.current!;
         const ctx = canvas.getContext("2d")!;
-        const isMobile = window.innerWidth < 768;
         /* ===============================
            CONFIG
         =============================== */
@@ -282,7 +283,7 @@ export default function DragonCursor() {
             window.removeEventListener("mousemove", handleMouse);
             window.removeEventListener("resize", resizeCanvas);
         };
-    }, []);
+    }, [isMobile]);
 
     return (
         <canvas

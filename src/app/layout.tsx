@@ -7,6 +7,7 @@ import {TooltipProvider} from "@/components/ui/tooltip";
 import {AuthProvider} from "@/contexts/AuthContext";
 import {ChatProvider} from "@/contexts/ChatContext";
 import ChatWoot from "@/components/ChatWoot";
+import { DeviceProvider } from "@/contexts/DeviceContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
       <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <AuthProvider>
+          <DeviceProvider>
           <ThemeProvider>
               <TooltipProvider>
                   <LanguageProvider>
@@ -54,6 +56,7 @@ export default function RootLayout({
                   </LanguageProvider>
               </TooltipProvider>
           </ThemeProvider>
+          </DeviceProvider>
       </AuthProvider>
       </body>
       </html>
