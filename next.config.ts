@@ -16,7 +16,9 @@ import type { NextConfig } from "next";
 // };
 
 const nextConfig: NextConfig = {
-    output: "standalone",
+    experimental: {
+        runtime: "edge",
+    },
     typescript: {
         ignoreBuildErrors: true, // ⚠️ ignora todos os erros de TS durante o build
     },
