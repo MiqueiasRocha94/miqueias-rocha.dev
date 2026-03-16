@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { PAGES, PUBLIC_PAGES } from "@/config/navegation";
@@ -15,7 +15,7 @@ export default function MobileServices() {
     const { isAuthenticated } = useAuth();
     const [open, setOpen] = useState(false);
 
-    const pages: Page[] = isAuthenticated ? PAGES : PUBLIC_PAGES;
+    const pages: Page[] = isAuthenticated ? PAGES : [...PUBLIC_PAGES, { name: "login", link: "/login" }];
 
     return (
         <div className="flex flex-col items-center w-full">

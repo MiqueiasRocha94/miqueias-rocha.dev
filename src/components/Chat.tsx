@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import {useChat} from "@/contexts/ChatContext";
+import { useChat } from "@/contexts/ChatContext";
 
 interface ChatProps {
     isAdmin: boolean;
@@ -17,29 +17,29 @@ export default function Chat({ isAdmin }: ChatProps) {
     const [loading, setLoading] = useState(false);
 
     async function handleSend() {
-
         if (!input.trim()) return;
 
         setStarted(true);
         setLoading(true);
 
         try {
-
-            await sendMessage(input);
-
+            await sendMessage(input, isAdmin);
             setInput("");
-
         } finally {
             setLoading(false);
         }
-
     }
+
+    useEffect(() => {
+        if (messages.length > 0) {
+            setStarted(true);
+        }
+    }, [messages.length]);
 
     const showWelcome = !started && !isAdmin;
 
     return (
         <main className="flex-1 flex flex-col items-center">
-            {/* HEADER */}
             <div className="w-full max-w-5xl px-6">
                 <div className="border-b border-red-700 py-4">
                     <h1 className="text-red-500 font-semibold">
@@ -48,9 +48,7 @@ export default function Chat({ isAdmin }: ChatProps) {
                 </div>
             </div>
 
-            {/* CONTEÚDO */}
             <div className="flex-1 w-full max-w-5xl px-6 flex flex-col">
-                {/* MODO INICIAL VISITANTE */}
                 {showWelcome && (
                     <div className="flex-1 flex flex-col items-center justify-center text-center gap-8">
                         <div>
@@ -71,11 +69,10 @@ export default function Chat({ isAdmin }: ChatProps) {
                             </p>
                         </div>
 
-                        {/* INPUT CENTRAL */}
                         <div className="flex w-full max-w-xl gap-3">
                             <input
                                 className="flex-1 bg-black border border-red-700 p-4 rounded-full"
-                                placeholder="Faça sua pergunta..."
+                                placeholder="Faca sua pergunta..."
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 disabled={loading}
@@ -91,7 +88,6 @@ export default function Chat({ isAdmin }: ChatProps) {
                     </div>
                 )}
 
-                {/* CHAT */}
                 {!showWelcome && (
                     <>
                         <div className="flex-1 overflow-y-auto py-6 space-y-6">
@@ -103,7 +99,7 @@ export default function Chat({ isAdmin }: ChatProps) {
                                                 {msg.text}
                                             </div>
                                         </div>
-                                        ) : (
+                                    ) : (
                                         <div className="flex justify-start">
                                             <div className="bg-zinc-900 border border-red-700 p-4 rounded-lg max-w-2xl">
                                                 <ReactMarkdown>{msg.text}</ReactMarkdown>
@@ -129,7 +125,6 @@ export default function Chat({ isAdmin }: ChatProps) {
                             ))}
                         </div>
 
-                        {/* INPUT FIXO */}
                         <div className="border-t border-red-700 py-4">
                             <div className="flex gap-3">
                                 <input

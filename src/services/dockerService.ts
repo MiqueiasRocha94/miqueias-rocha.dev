@@ -1,16 +1,41 @@
 import http from "http";
-import os from "os";
+
+type DockerRequestOptions = http.RequestOptions & {
+    basePath?: string;
+};
+
+function normalizeDockerHost(rawHost: string): URL | null {
+    const trimmed = rawHost.trim();
+    if (!trimmed) {
+        return null;
+    }
+
+    if (trimmed.startsWith("tcp://")) {
+        return new URL(`http://${trimmed.slice("tcp://".length)}`);
+    }
+
+    if (!trimmed.includes("://")) {
+        return new URL(`http://${trimmed}`);
+    }
+
+    try {
+        return new URL(trimmed);
+    } catch {
+        return null;
+    }
+}
 
 function getDockerOptions(
     method: string,
     path: string
-): http.RequestOptions {
+): DockerRequestOptions {
 
-    const isWindows = os.platform() === "win32";
+    const useWindowsPipe =
+        process.env.DOCKER_USE_WINDOWS_PIPE === "true";
 
-    if (isWindows) {
+    if (useWindowsPipe) {
         return {
-            socketPath: "//./pipe/docker_engine",
+            socketPath: process.env.DOCKER_PIPE,
             path,
             method,
             headers: {
@@ -19,15 +44,48 @@ function getDockerOptions(
         };
     }
 
-    // Linux / WSL
-    return {
-        socketPath: "/var/run/docker.sock",
-        path,
-        method,
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
+    const socketPath = process.env.DOCKER_SOCKET_PATH;
+    if (socketPath) {
+        return {
+            socketPath,
+            path,
+            method,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+    }
+
+    const dockerHostRaw = process.env.DOCKER_HOST;
+    const dockerHost = dockerHostRaw
+        ? normalizeDockerHost(dockerHostRaw)
+        : null;
+
+    if (dockerHost) {
+        const basePath =
+            dockerHost.pathname && dockerHost.pathname !== "/"
+                ? dockerHost.pathname.replace(/\/$/, "")
+                : "";
+
+        return {
+            host: dockerHost.hostname,
+            port: dockerHost.port
+                ? Number(dockerHost.port)
+                : dockerHost.protocol === "https:"
+                    ? 443
+                    : 80,
+            method,
+            path,
+            basePath,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+    }
+
+    throw new Error(
+        "Configuracao do Docker ausente: defina DOCKER_SOCKET_PATH, DOCKER_HOST ou DOCKER_USE_WINDOWS_PIPE."
+    );
 }
 
 function dockerRequest(
@@ -39,7 +97,13 @@ function dockerRequest(
 
         const options = getDockerOptions(method, path);
 
-        const req = http.request(options, (res) => {
+        const { basePath, ...httpOptions } = options;
+        const requestOptions =
+            basePath
+                ? { ...httpOptions, path: `${basePath}${path}` }
+                : httpOptions;
+
+        const req = http.request(requestOptions, (res) => {
             let data = "";
 
             res.on("data", (chunk) => {
