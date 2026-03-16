@@ -13,4 +13,4 @@ NEXT_PUBLIC_ADMIN_USER = "MiqueiasRocha"
 [[d1_databases]]
 binding = "APP_CONFIG_D1"
 database_name = "app_config"
-database_id = "REPLACE_ME"
+database_id = "3f8b3029-3715-4c7d-97f5-7451eda8fb5a"
