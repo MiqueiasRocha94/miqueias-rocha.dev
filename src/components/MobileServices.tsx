@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { PAGES, PUBLIC_PAGES } from "@/config/navegation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNavigation } from "@/contexts/NavigationContext";
 
 interface Page {
     name: string;
@@ -13,12 +13,33 @@ interface Page {
 export default function MobileServices() {
 
     const { isAuthenticated } = useAuth();
+    const { items } = useNavigation();
     const [open, setOpen] = useState(false);
 
-    const pages: Page[] = isAuthenticated ? PAGES : [...PUBLIC_PAGES, { name: "login", link: "/login" }];
+    const pages: Page[] = isAuthenticated
+        ? items.filter((item) => item.link !== "/")
+        : [...items.filter((item) => item.link !== "/"), { name: "login", link: "/login" }];
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1, delayChildren: 0.12 },
+        },
+        exit: {
+            opacity: 0,
+            transition: { staggerChildren: 0.05, staggerDirection: -1 },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 12, scale: 0.96 },
+        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3 } },
+        exit: { opacity: 0, y: 8, scale: 0.96, transition: { duration: 0.24 } },
+    };
 
     return (
-        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center mb-5 w-full">
 
             {/* Botão de abrir/fechar */}
             <button
@@ -39,19 +60,31 @@ export default function MobileServices() {
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.3 }}
-                        className="grid grid-cols-2 gap-6 px-6 w-full max-w-sm"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{
+                            height: "auto",
+                            opacity: 1,
+                            transition: { height: { duration: 0.45, ease: "easeOut" } },
+                        }}
+                        exit={{
+                            height: 0,
+                            opacity: 0,
+                            transition: { height: { duration: 0.32, ease: "easeIn" } },
+                        }}
+                        className="w-full "
                     >
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            className="grid grid-cols-2 gap-6 px-6 w-full max-w-sm"
+                        >
                         {pages.map((item, index) => (
                             <motion.a
                                 key={item.name}
                                 href={item.link}
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                transition={{ delay: index * 0.08 }}
+                                variants={itemVariants}
                                 className="relative flex items-center justify-center h-24 rounded-full
                                 bg-red-600/20 border border-red-500
                                 backdrop-blur-md
@@ -66,6 +99,7 @@ export default function MobileServices() {
                                 <div className="absolute inset-0 rounded-full border border-red-500 animate-pulse opacity-30" />
                             </motion.a>
                         ))}
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

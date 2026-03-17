@@ -48,17 +48,21 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/50" />
 
             <DragonCursor />
+            {!isMobile?
+                (<Link
+                    href="/login"
+                    className={`absolute z-20 rounded-full border border-red-500/50 bg-black/60 uppercase text-red-300 shadow-[0_0_12px_rgba(255,0,0,0.25)] backdrop-blur-sm transition hover:text-red-200 hover:shadow-[0_0_18px_rgba(255,0,0,0.45)] ${
+                        isMobile
+                            ? "right-3 top-3 px-3 py-1 text-[10px] tracking-[0.2em]"
+                            : "right-6 top-6 px-4 py-2 text-xs tracking-[0.3em]"
+                    }`}
+                >
+                    Login
+                </Link>)
+                :
+                null
+            }
 
-            <Link
-                href="/login"
-                className={`absolute z-20 rounded-full border border-red-500/50 bg-black/60 uppercase text-red-300 shadow-[0_0_12px_rgba(255,0,0,0.25)] backdrop-blur-sm transition hover:text-red-200 hover:shadow-[0_0_18px_rgba(255,0,0,0.45)] ${
-                    isMobile
-                        ? "right-3 top-3 px-3 py-1 text-[10px] tracking-[0.2em]"
-                        : "right-6 top-6 px-4 py-2 text-xs tracking-[0.3em]"
-                }`}
-            >
-                Login
-            </Link>
 
             <div className="relative z-10 flex flex-col h-full text-white">
                 <header className={`${isMobile ? "pt-6" : "pt-10"} text-center`}>
@@ -86,7 +90,7 @@ export default function Home() {
                 <main className={`flex-1 flex flex-col items-center justify-center ${isMobile ? "gap-6" : "gap-10"}`}>
                     <div
                         className={`grid w-full max-w-5xl grid-cols-1 md:grid-cols-3 ${
-                            isMobile ? "gap-3 px-4" : "gap-4 px-6"
+                            isMobile ? "mt-4 gap-3 px-4" : "gap-4 px-6"
                         }`}
                     >
                         {isMobile ? (
@@ -116,13 +120,19 @@ export default function Home() {
                         )}
                     </div>
 
-                    {isMobile ? <MobileServices /> : <ServicePages />}
+                    {isMobile ? (
+                        <div className="fixed bottom-16 ">
+                            <MobileServices />
+                        </div>
+                    ) :
+                        <ServicePages />
+                    }
                 </main>
 
-                <footer className={`${isMobile ? "relative mt-6 pb-6" : "absolute bottom-0 left-0 w-full pb-6"}`}>
+                <footer className="fixed bottom-0 left-0 w-full pb-6">
                     <div
                         className={`relative mx-auto mt-3 mb-2 bg-red-700 overflow-hidden ${
-                            isMobile ? "h-[2px] w-[92vw]" : "h-[3px] w-[150vh]"
+                            isMobile ? "h-[2px] w-[72vw]" : "h-[3px] w-[150vh]"
                         }`}
                     >
                         <span className="absolute top-0 left-[-40%] h-full w-1/3 bg-gradient-to-r from-transparent via-red-400 to-transparent animate-energy" />

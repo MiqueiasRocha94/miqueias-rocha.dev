@@ -1,11 +1,13 @@
 services:
   nextjs-app:
     container_name: portfolio-nextjs-app
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     ports:
       - "3001:3000"
     env_file:
-      - .env.production
+      - ../.env.production
     networks:
       - proxy-network
     mem_reservation: 256m

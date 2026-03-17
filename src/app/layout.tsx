@@ -8,6 +8,9 @@ import {AuthProvider} from "@/contexts/AuthContext";
 import {ChatProvider} from "@/contexts/ChatContext";
 import ChatWoot from "@/components/ChatWoot";
 import { DeviceProvider } from "@/contexts/DeviceContext";
+import DeviceShell from "@/components/DeviceShell";
+import { NavigationProvider } from "@/contexts/NavigationContext";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,7 +51,11 @@ export default function RootLayout({
               <TooltipProvider>
                   <LanguageProvider>
                       <ChatProvider>
-                        {children}
+                          <NavigationProvider>
+                              <DeviceShell>
+                                  {children}
+                              </DeviceShell>
+                          </NavigationProvider>
                           <div className="fixed bottom-1 right-12 z-[9999]">
                               <ChatWoot/>
                           </div>

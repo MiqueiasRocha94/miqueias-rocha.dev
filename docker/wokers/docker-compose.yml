@@ -1,0 +1,14 @@
+services:
+  nextjs-app:
+    container_name: portfolio-nextjs-workers
+    build:
+      context: ../..
+      dockerfile: docker/wokers/Dockerfile
+    volumes:
+      - ../..:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - OPEN_NEXT_RUNTIME=edge
