@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useLanguage } from "@/contexts/LanguageContext";
-import { languages, supportedLocales } from '@/models/Language';
+import {languages, supportedLocales} from "@/data/languages";
+
 
 const Translate: React.FC = () => {
     const { language, setLanguage } = useLanguage();
@@ -11,7 +12,7 @@ const Translate: React.FC = () => {
     const [showGoogleTranslate, setShowGoogleTranslate] = useState(false);
 
     useEffect(() => {
-        const storedLang = localStorage.getItem('lang');
+        const storedLang = localStorage.getItem('i18nextLng');
         if (storedLang === 'outros') {
             setShowGoogleTranslate(true);
         }
@@ -66,8 +67,9 @@ const Translate: React.FC = () => {
         }
 
         setLanguage(languages[lang]);
-        localStorage.setItem('lang', lang); // agora gravando corretamente
+        localStorage.setItem('i18nextLng', lang); // agora gravando corretamente
         setShowMenu(false);
+        window.location.reload()
     };
 
     return (

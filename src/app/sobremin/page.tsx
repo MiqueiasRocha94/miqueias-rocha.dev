@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Header from "@/components/Header";
 import About from "@/components/About";
@@ -10,12 +10,13 @@ import { useDevice } from "@/contexts/DeviceContext";
 import { useEffect, useState } from "react";
 import TopNav from "@/components/TopNav";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import SectionDivider from "@/components/SectionDivider";
 
 export default function Portfolio() {
     const { isMobile } = useDevice();
 
     const [showScrollTop, setShowScrollTop] = useState(false);
-    const [showTopNav, setShowTopNav] = useState(true);
+    const [showTopNav, setShowTopNav] = useState(false);
 
     useEffect(() => {
         window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
@@ -51,15 +52,15 @@ export default function Portfolio() {
                     }`}
                 >
                     <Header />
-                    <hr className="border-border slide-up-fade-in" />
+                    <SectionDivider delay={0.2} />
                     <About />
-                    <hr className="border-border slide-up-fade-in" />
+                    <SectionDivider delay={0.4} />
                     <Education />
-                    <hr className="border-border slide-up-fade-in" />
+                    <SectionDivider delay={0.6} />
                     <Technologies />
-                    <hr className="border-border slide-up-fade-in" />
+                    <SectionDivider delay={0.8} />
                     <Stats />
-                    <hr className="border-border slide-up-fade-in" />
+                    <SectionDivider delay={1} />
                     <Timeline />
                 </div>
             </div>

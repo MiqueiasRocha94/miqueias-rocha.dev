@@ -1,8 +1,10 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { defaultLanguage, Language, languages } from '@/models/Language';
 import i18n from '@/i18n';
+import Loading from "@/components/Loading";
+import { defaultLanguage, languages } from "@/data/languages";
+import { Language } from "@/types/language";
 
 export type LanguageContextType = {
     language: Language;
@@ -36,7 +38,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         i18n.changeLanguage(lang.description);
     };
 
-    if (!ready) return null;
+    if (!ready) return (<Loading />);
 
     return (
         <LanguageContext.Provider value={{ language, setLanguage, t: i18n.t }}>

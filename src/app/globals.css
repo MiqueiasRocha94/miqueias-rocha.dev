@@ -94,3 +94,103 @@ body {
 .animate-nav {
     animation: navReveal 0.45s ease-out;
 }
+
+/* reveal vertical */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-up-fade-in {
+    opacity: 0;
+    animation: slideUpFade 0.8s ease forwards;
+}
+
+/* glow tecnológico vermelho */
+@keyframes techGlow {
+    0%,100% {
+        box-shadow: 0 0 10px rgba(255,0,0,0.35);
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(255,0,0,0.85);
+    }
+}
+
+.profile-glow {
+    animation: techGlow 3s ease-in-out infinite;
+}
+
+/* linha tecnológica */
+@keyframes scanLine {
+    from {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+    to {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+.tech-line {
+    height: 2px;
+    width: 180px;
+    margin: 12px auto 0;
+    background: linear-gradient(90deg, transparent, red, transparent);
+    transform-origin: center;
+    animation: scanLine 1s ease forwards;
+}
+
+/* botão idioma */
+.translate-hover {
+    transition: all .3s ease;
+}
+
+.translate-hover:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 6px red);
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes stackInRight {
+    from {
+        opacity: 0;
+        transform: translateX(60px) translateY(-8px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0) scale(1);
+    }
+}
+
+@keyframes slideDownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-seq {
+    opacity: 0;
+    animation: slideUpFade 0.7s ease forwards;
+}

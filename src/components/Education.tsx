@@ -1,13 +1,23 @@
-"use client"
+﻿"use client"
 
 import { TypographyH2, TypographyP } from "@/components/ui/typography"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { useInView } from "@/hooks/useInView"
 
 export default function Education() {
     const { t } = useLanguage()
+    const { ref, inView } = useInView({ threshold: 0.2, once: false })
 
     return (
-        <section className="space-y-6 slide-up-fade-in">
+        <section
+            ref={ref}
+            className={
+                "space-y-6 " +
+                (inView
+                    ? "opacity-0 animate-[slideUpFade_0.8s_ease_forwards] [animation-delay:0.1s]"
+                    : "opacity-0")
+            }
+        >
             <TypographyH2 className="text-gray-100">
                 {t("education.title")}
             </TypographyH2>

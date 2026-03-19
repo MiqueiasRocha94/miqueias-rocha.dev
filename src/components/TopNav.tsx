@@ -18,7 +18,7 @@ export default function TopNav() {
     );
 
     return (
-        <div className="fixed top-0 left-0 z-50 w-full border-b border-red-700 bg-black/60 backdrop-blur-md animate-nav">
+        <div className="sticky top-0 z-50 w-full border-b border-red-700 bg-black/60 backdrop-blur-md animate-nav">
             <div className={`mx-auto flex items-center justify-center gap-3 px-4 py-3 ${isMobile ? "text-xs" : "text-sm"}`}>
                 {canToggle && (
                     <button
