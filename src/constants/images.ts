@@ -1,4 +1,3 @@
-
 // Flags
 import PROFILE_PHOTO from '../../public/profile-photo.png';
 import FLAG_BR from '../../public/locales/pt-BR/pt-BR.png';

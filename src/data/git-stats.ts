@@ -1,16 +1,5 @@
-import { IconType } from 'react-icons';
-import { SiGithub, SiGitlab } from 'react-icons/si';
-
-export interface GitStaticsItem {
-    label: string;
-    value: string;
-}
-
-export interface GitStaticsModel {
-    title: string;
-    icon: IconType;
-    items: GitStaticsItem[];
-}
+﻿import { SiGithub, SiGitlab } from 'react-icons/si';
+import { GitStaticsModel } from '@/types/git-stats';
 
 export const stats: GitStaticsModel[] = [
     {
