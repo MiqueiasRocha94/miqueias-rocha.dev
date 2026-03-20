@@ -11,6 +11,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
     "@radix-ui/react-aspect-ratio": "^1.1.1",
@@ -40,6 +42,7 @@
     "@radix-ui/react-tooltip": "^1.1.6",
     "@uiw/react-md-editor": "^4.0.11",
     "axios": "^1.8.4",
+    "capacitor-native-biometric": "^4.2.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
